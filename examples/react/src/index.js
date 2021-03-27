@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { render } from 'react-dom';
 import FilerobotImageEditor from '../../../src';
+import img from './image-403.jpg'
 
 
 const App = () => {
@@ -10,13 +11,13 @@ const App = () => {
 
   return (
     <div>
-      <h1>Filerobot Image Editor</h1>
+      <h1>Filerobot Image Editor123</h1>
 
-      <img src={src} onClick={() => { toggle(true) }} alt="example image" style={{ maxWidth: '100%' }}/>
+      <img src={img} onClick={() => { toggle(true) }} alt="example image" style={{ maxWidth: '100%' }}/>
 
       <FilerobotImageEditor
         show={show}
-        src={src}
+        src={img}
         onClose={() => { toggle(false) }}
         onOpen={() => console.log('Editor is opened.')}
         onComplete={(props) => { console.log(props) }}
