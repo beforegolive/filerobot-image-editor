@@ -10,7 +10,8 @@ const ORIGINAL_CANVAS_ID = 'filerobot-image-edit-box-original';
 
 // 'effects', 'filters', 'adjust', 'crop', 'resize', 'rotate'
 const TOOLS = [
-  'adjust', 'effects', 'filters', 'rotate', 'crop', 'resize', 'watermark', 'shapes', 'image', 'text'
+  // 'adjust', 'effects', 'filters', 'rotate', 'crop', 'resize', 'watermark', 'shapes', 'image', 'text'
+  'text'
 ];
 
 // 'clarity', 'edge_enhance', 'emboss', 'grungy', 'hazy', 'lomo', 'noise', 'old_paper', 'posterize', 'radial_blur',

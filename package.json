@@ -20,11 +20,12 @@
     "cropperjs": "^1.5.5",
     "image-type": "^4.1.0",
     "js-sha1": "^0.6.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-scripts": "^3.3.0",
     "styled-components": "5.1.1",
     "throttle-debounce": "^2.1.0",
-    "uuid": "^3.4.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "uuid": "^3.4.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.17",
@@ -32,6 +33,7 @@
     "@babel/node": "^7.12.17",
     "@babel/plugin-proposal-class-properties": "^7.12.13",
     "@babel/plugin-proposal-export-default-from": "^7.12.13",
+    "@babel/plugin-proposal-optional-chaining": "^7.13.12",
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/plugin-syntax-jsx": "^7.12.13",
     "@babel/plugin-transform-arrow-functions": "^7.12.13",

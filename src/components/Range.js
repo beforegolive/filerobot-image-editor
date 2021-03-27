@@ -61,7 +61,6 @@ const Wrapper = styled('div').attrs(() => ({
   className: 'image-editor-range'
 }))`
   position: relative;
-  padding: 25px 5px 20px 5px;
   
   label {
     display: inline-block;
@@ -69,6 +68,7 @@ const Wrapper = styled('div').attrs(() => ({
     text-align: center;
     padding-top: ${p => p.labelBefore ? 0 : '20px'};
     color: ${p => p.theme.colors.text || '#ffffff'};
+    padding-bottom:2px;
   }
   
   :after {

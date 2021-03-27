@@ -89,6 +89,11 @@ export default class extends Component {
     this._isMounted = false;
   }
 
+  /**
+   * 1. 实例化Image并加载图片，处理水印，
+   * 2. 根据尺寸做裁剪（自动模式）
+   * 3. 如果工具只有一个可用，则默认激活
+   */
   loadImage = () => {
     let { src } = this.props;
     const { reduceBeforeEdit: { mode, widthLimit, heightLimit } = {}, watermark } = this.state;
@@ -128,6 +133,7 @@ export default class extends Component {
           canvasDimensions,
           ...propsOnApply
         });
+        // 将图片按比例缩放
       } else if (mode === 'auto' && (widthLimit < img.width || heightLimit < img.height)) {
         if (img.width >= img.height) {
           const ratio = img.width / img.height;
@@ -158,6 +164,7 @@ export default class extends Component {
         const isOneTool = tools.length === 1;
         let activeTab;
 
+        // 如果只有一个工具可用，则默认激活        
         if (isOneTool) {
           activeTab = tools[0];
         }

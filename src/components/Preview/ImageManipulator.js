@@ -531,6 +531,7 @@ export default class ImageManipulator extends Component {
         if (saturation.toString() !== '0') this.CamanInstanceOriginal.saturation(parseInt(saturation || '0'));
         if (exposure.toString() !== '0') this.CamanInstanceOriginal.exposure(parseInt(exposure || '0'));
 
+        console.log('====== this.CamanInstanceOriginal：', this.CamanInstanceOriginal)
         this.CamanInstanceOriginal.render(() => {
           updateState({ adjust: { ...resetProps } }, () => {
             this.makeCanvasSnapshot({ operation: 'adjust' }, callback);

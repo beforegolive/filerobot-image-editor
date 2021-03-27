@@ -26,7 +26,8 @@ export default class CustomizedCanvas extends Component {
 
     this.state = {
       resizeControlTarget: null,
-      latestCanvasSize: null
+      latestCanvasSize: null,
+      stayFocus: false
     }
   }
 
@@ -34,6 +35,7 @@ export default class CustomizedCanvas extends Component {
     if (this.canvasRef && this.canvasRef.current && !this._canvas) {
       this._canvas = this.canvasRef.current;
       this._canvas.addEventListener('mousedown', this.onSelect);
+      // this._canvas.addEventListener('touchstart', this.onSelect);
       this._context = this._canvas.getContext('2d');
 
       const border = `1px solid ${
@@ -157,6 +159,8 @@ export default class CustomizedCanvas extends Component {
 
   onSelect = (event) => {
     const { shapes, activeTab } = this.props;
+    // console.log('== activeTab', activeTab )
+    // console.log('=== event:', event)
     if (!this._allowedTabs.includes(activeTab)) {
       return;
     }
@@ -165,7 +169,6 @@ export default class CustomizedCanvas extends Component {
 
     
     let foundShape = false;
-
     shapes.forEach(
       (shape) => {
         if (
@@ -177,7 +180,7 @@ export default class CustomizedCanvas extends Component {
             && shape.tab === activeTab
           ) {
             foundShape = true;
-
+            console.log('=== shape:', shape)
             this.updateState({
               selectedShape: {
                 ...shape,
@@ -482,6 +485,7 @@ export default class CustomizedCanvas extends Component {
         this.drawCircle(shape);
         break;
       case SHAPES_VARIANTS.TEXT:
+        console.log('==== drawShapeThroughVariant shape:', shape)
         this.drawText(shape);
       default:
         return;
@@ -532,9 +536,31 @@ export default class CustomizedCanvas extends Component {
     return [width, height];
   }
 
-  drawText = ({ text, textSize, textFont, x, y, stroke, ...others })  => {
+  drawText = ({ text, textSize, textFont, x, y, stroke,paddingTB=0, paddingLR=0, textTheme=0, ...others })  => {
+    const { shapes, selectedShape } = this.props;
     this.draw(() => {
-      this.setTextStyle({ textSize, textFont });
+      this.setTextStyle({ textSize, textFont });      
+      // textTheme==0 黑底白字， textTheme==1 白底黑字
+
+      console.log('=== selectedShape：', selectedShape)
+      console.log('=== index', selectedShape.index)
+      const factor = textSize
+      const actualPaddingTB = paddingTB * factor
+      const actualPaddingLR = paddingLR * this._canvas.width/2
+      
+      const backgroundColor = textTheme===0 ? '#000000': '#ffffff'
+      const textColor = textTheme===0 ? '#ffffff': '#000000' 
+
+
+      const mText = this._context.measureText(text)
+      const bHeight = mText.fontBoundingBoxDescent + mText.fontBoundingBoxAscent + actualPaddingTB
+      const bWidth = this._canvas.width - actualPaddingLR 
+      const actualStartY =y - mText.fontBoundingBoxAscent - actualPaddingTB/2
+      const actualStartX = 0 + actualPaddingLR/2
+
+      this._context.fillStyle = backgroundColor;
+      this._context.fillRect(actualStartX, actualStartY, bWidth, bHeight );
+      this._context.fillStyle = textColor;
       this._context.fillText(text, x, y, this._canvas.width);
       if (stroke) {
         this._context.strokeText(text, x, y);
@@ -634,7 +660,7 @@ export default class CustomizedCanvas extends Component {
   }
 
   addText = ({
-    text = 'Text', textSize = 62, color = "#000000", textFont = 'Arial', x = undefined, y = undefined,
+    text = 'Text', textSize = 32, color = "#000000", textFont = 'Arial', x = undefined, y = undefined,
     stroke = {}, opacity = 1.0, tab = 'text', otherStates, ...others
   } = {}) => {
     const [width, height] = this.getTextWidthAndHeight({ text, textSize, textFont });
@@ -642,10 +668,10 @@ export default class CustomizedCanvas extends Component {
     // Set text style here for measuring the text's width & hegiht before drawing.
     const [centerX, centerY] = this.getCanvasCenter(width / 2, height / 2);
 
-    if (text) {
+    if (text) { 
       const drawingArgs = { text, textSize, textFont, x: x || centerX, y: y || centerY, opacity,
         stroke, color };
-      const allArgs = { ...this._initArgs, ...others, ...drawingArgs, width, height, variant: SHAPES_VARIANTS.TEXT, tab };
+      const allArgs = { ...this._initArgs, ...others, ...drawingArgs, width: this._canvas.width, height, variant: SHAPES_VARIANTS.TEXT, tab };
 
       if (others.key && this.replaceShapeIfExisted(others.key, allArgs, otherStates)) { return; }
 
@@ -1034,8 +1060,8 @@ export default class CustomizedCanvas extends Component {
     }
     const left = (this._canvas ? this._canvas.offsetLeft : 0) + x;
     const top = (this._canvas ? this._canvas.offsetTop : 0 ) + y;
-    const mutualStyles = { pointerEvents: 'all' };
-
+    const mutualStyles = { pointerEvents: 'all', height: 10, width: 10 };
+    // console.log('=== CustomizeCanvas this.props:',this.props)
     return (
       <>
         <PreviewCanvas
@@ -1047,11 +1073,14 @@ export default class CustomizedCanvas extends Component {
         />
 
         <div
+          // onFocus={()=>this.setState({stayFocus: true})}
+          // onBlur={()=>this.setState({stayFocus: false})}
           ref={this.shapeResizingBoxRef}
           className="cropper-crop-box"
           style={{ display: resizingBox && !lockScaleToPercentage ? 'block' : 'none',
             width, height, left, top, pointerEvents: 'none' }}
         >
+          {/* {<input></input>} */}
           {resizingBoxLines.map((l) => (
             <span
               key={l}
