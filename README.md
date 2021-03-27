@@ -7,6 +7,8 @@
 
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Edit,%20resize,%20and%20filter%20any%20image&url=https://scaleflex.github.io/filerobot-image-editor/&via=filerobot&hashtags=uploader,image_resizing,image_editor,image_cropping)
 
+<h1>自定制图片修改组件，基于原组件3.12.17版本改造</h1>
+
 <p align="center">
 	<a href="https://www.filerobot.com/en/home">
 		<img
