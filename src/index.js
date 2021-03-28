@@ -1,1 +1,3 @@
-export default from './ImageEditorWrapper'
+import ImageEditorWrapper from './ImageEditorWrapper'
+
+export default ImageEditorWrapper
