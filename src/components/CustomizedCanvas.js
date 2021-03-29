@@ -485,7 +485,7 @@ export default class CustomizedCanvas extends Component {
         this.drawCircle(shape);
         break;
       case SHAPES_VARIANTS.TEXT:
-        console.log('==== drawShapeThroughVariant shape:', shape)
+        // console.log('==== drawShapeThroughVariant shape:', shape)
         this.drawText(shape);
       default:
         return;

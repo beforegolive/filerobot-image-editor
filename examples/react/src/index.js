@@ -9,19 +9,24 @@ const App = () => {
   const src = 'https://cdn.scaleflex.it/demo/stephen-walker-unsplash.jpg';
   const [show, toggle] = useState(false);
 
-
+  const handleImgComplete = (props)=>{
+    const { canvas, imageMime, imageName } = props
+    const imgDOM = document.getElementById('edit-img')
+    imgDOM.src= canvas.toDataURL(imageMime)
+  }
   return (
     <div>
       <h1>Filerobot Image Editor123</h1>
 
       <img src={img} onClick={() => { toggle(true) }} alt="example image" style={{ maxWidth: '100%' }}/>
 
+      <img id='edit-img' />
       <FilerobotImageEditor
         show={show}
         src={img}
         onClose={() => { toggle(false) }}
         onOpen={() => console.log('Editor is opened.')}
-        onComplete={(props) => { console.log(props) }}
+        onComplete={handleImgComplete}
         onBeforeComplete={(props) => { console.log(props); return false; }}
       />
     </div>

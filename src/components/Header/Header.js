@@ -33,7 +33,6 @@ export default class extends Component {
       : saveAsFn;
 
     const showSaveAs = isLastStep && processWithFilerobot && !processWithCloudService && filerobot.onSaveAs
-    console.log('=== selectedShape:', selectedShape)
     return (
       <HeaderWrapper>
         <HeaderTop>
