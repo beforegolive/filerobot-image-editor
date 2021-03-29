@@ -49,9 +49,9 @@ export default class Text extends Component {
 		return (
 			<AddWrapper>
 				<SettingsWrapper>
-          <FieldGroup>
+          {/* <FieldGroup>
             <Button onClick={()=>this.props.shapeOperations.addText()}>添加文字</Button> 
-          </FieldGroup>
+          </FieldGroup> */}
 					<FieldGroup>
 						<FieldCustomLabel>Text</FieldCustomLabel>
 						<FieldInput
@@ -61,10 +61,6 @@ export default class Text extends Component {
 							style={{ minWidth: 111 }}
 							onChange={this.updatePropertyFromEvent}
 						/>
-					</FieldGroup>
-          <FieldGroup>
-            <Button primary={textTheme===0} onClick={()=>this.updateProperty('textTheme',0)}>黑底白字</Button>
-            <Button primary={textTheme===1} onClick={()=>this.updateProperty('textTheme',1)}>白底黑字</Button>
 					</FieldGroup>
           <FieldGroup>
             <Range

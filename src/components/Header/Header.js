@@ -8,11 +8,13 @@ import { ON_CLOSE_STATUSES } from '../../config';
 import SaveActions from './SaveActions';
 
 export default class extends Component {
+  updateProperty = (name, value)=>this.props.shapeOperations.updateShape({[name]: value})
   render() {
     const {
       activeTab, onRevert, apply, onClose, processWithCloudService, processWithFilerobot,
-      handleSave, t, config
+      handleSave, t, config, shapeOperations, selectedShape
     } = this.props;
+    const {textTheme=0} = selectedShape
     const { tools, replaceCloseWithBackButton, noCapitalStrs, filerobot, finishButtonLabel } = config;
     const isOneTool = tools.length === 1;
     const filteredName = activeTab === 'rotate' ? 'orientation' : activeTab;
@@ -31,11 +33,11 @@ export default class extends Component {
       : saveAsFn;
 
     const showSaveAs = isLastStep && processWithFilerobot && !processWithCloudService && filerobot.onSaveAs
-
+    console.log('=== selectedShape:', selectedShape)
     return (
       <HeaderWrapper>
         <HeaderTop>
-          <Title noCapitalStrs={noCapitalStrs}>{t[`toolbar.${filteredName}`] || t[`header.image_editor_title`]}</Title>
+          {/* <Title noCapitalStrs={noCapitalStrs}>{t[`toolbar.${filteredName}`] || t[`header.image_editor_title`]}</Title> */}
           <ButtonsWrapper>
             {replaceCloseWithBackButton && (
               <BackButtonWrapper>
@@ -65,6 +67,15 @@ export default class extends Component {
             >
               {t[`toolbar.cancel`]}
             </CancelBtn>
+            <span>---</span>
+            <Button onClick={()=>shapeOperations.addText()}>添加文字</Button>
+            <span>-</span>
+            <Button disabled={selectedShape.index===undefined} onClick={()=>shapeOperations.deleteShape({index: selectedShape.index})}>删除文字</Button>
+            <span>---</span>
+            <Button primary={textTheme===0} onClick={()=>this.updateProperty('textTheme',0)}>黑底白字</Button>
+            <span>-</span>
+            <Button primary={textTheme===1} onClick={()=>this.updateProperty('textTheme',1)}>白底黑字</Button>
+            <span>-</span>
           </ButtonsWrapper>
 
           {!replaceCloseWithBackButton && (<CloseBtn onClick={onClose} title={t[`header.close_modal`]} />)}

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { render } from 'react-dom';
-// import FilerobotImageEditor from '../../../src';
-import FilerobotImageEditor from '../../../dist'
+import FilerobotImageEditor from '../../../src';
+// import FilerobotImageEditor from '../../../dist'
 import img from './image-403.jpg'
 
 

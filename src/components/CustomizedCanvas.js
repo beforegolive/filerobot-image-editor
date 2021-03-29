@@ -542,8 +542,6 @@ export default class CustomizedCanvas extends Component {
       this.setTextStyle({ textSize, textFont });      
       // textTheme==0 黑底白字， textTheme==1 白底黑字
 
-      console.log('=== selectedShape：', selectedShape)
-      console.log('=== index', selectedShape.index)
       const factor = textSize
       const actualPaddingTB = paddingTB * factor
       const actualPaddingLR = paddingLR * this._canvas.width/2
@@ -575,7 +573,7 @@ export default class CustomizedCanvas extends Component {
   ) => {
     const [centerX, centerY] = this.getCanvasCenter(width / 2, height / 2);
 
-    const drawingArgs = { x: x || centerX, y: y || centerY, width, height, stroke, opacity, color };
+    const drawingArgs = { x: x || centerX, y: y || centerY, width, height, stroke, opacity, color};
     const allArgs = { ...this._initArgs, ...others, ...drawingArgs, variant, tab };
 
     if (others.key && this.replaceShapeIfExisted(others.key, allArgs)) { return; }
@@ -660,7 +658,7 @@ export default class CustomizedCanvas extends Component {
   }
 
   addText = ({
-    text = 'Text', textSize = 32, color = "#000000", textFont = 'Arial', x = undefined, y = undefined,
+    text = 'Text', textSize = 24, color = "#000000", textFont = 'Arial', x = undefined, y = undefined,
     stroke = {}, opacity = 1.0, tab = 'text', otherStates, ...others
   } = {}) => {
     const [width, height] = this.getTextWidthAndHeight({ text, textSize, textFont });
