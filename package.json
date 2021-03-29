@@ -71,6 +71,6 @@
     "dist": "npm run clean-dist && npx babel src --out-dir dist --copy-files",
     "deploy": "gh-pages -d examples/js/dist",
     "publish-demo": "npm run build-demo-js && npm run deploy",
-    "prepublish": "npm run dist"
+    "prepublishOnly": "npm run dist"
   }
 }
