@@ -72,9 +72,9 @@ export default class extends Component {
             <span>-</span>
             <Button disabled={selectedShape.index===undefined} onClick={()=>shapeOperations.deleteShape({index: selectedShape.index})}>删除文字</Button>
             <span>---</span>
-            <Button primary={textTheme===0} onClick={()=>this.updateProperty('textTheme',0)}>黑底白字</Button>
+            <Button disabled={selectedShape.index===undefined} primary={textTheme===0} onClick={()=>this.updateProperty('textTheme',0)}>黑底白字</Button>
             <span>-</span>
-            <Button primary={textTheme===1} onClick={()=>this.updateProperty('textTheme',1)}>白底黑字</Button>
+            <Button disabled={selectedShape.index===undefined} primary={textTheme===1} onClick={()=>this.updateProperty('textTheme',1)}>白底黑字</Button>
             <span>-</span>
           </ButtonsWrapper>
 
