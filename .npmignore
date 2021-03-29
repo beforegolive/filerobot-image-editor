@@ -8,3 +8,4 @@ scripts
 .gitignore
 .idea
 .travis.yml
+.vscode
