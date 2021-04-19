@@ -138,9 +138,9 @@ export default class extends Component {
           )}
         </HeaderTop>
 
-        {/* <ToolbarWrapper overlayYHidden={activeTab !== 'watermark'}>
-          <Toolbar {...this.props}/>
-        </ToolbarWrapper> */}
+        <ToolbarWrapper overlayYHidden={activeTab !== 'watermark'}>
+          <Toolbar {...this.props} />
+        </ToolbarWrapper>
       </HeaderWrapper>
     )
   }

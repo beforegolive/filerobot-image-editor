@@ -9,8 +9,10 @@ const HeaderWrapper = styled.div`
 const HeaderTop = styled.div`
   border-bottom: 1px solid ${(props) => props.theme.colors.primaryBg};
   background: ${(props) => props.theme.colors.primaryBg};
-  height: 70px;
-  /* line-height: 46px; */
+  height: 46px;
+  @media (max-width: 480px) {
+    height: 70px;
+  }
   position: relative;
   border: 3px solid yellow;
 `
