@@ -1,24 +1,25 @@
-import styled from 'styled-components';
-import { Button } from './Button';
-import { getHoverColor } from './styleUtils';
+import styled from 'styled-components'
+import { Button } from './Button'
+import { getHoverColor } from './styleUtils'
 
 const HeaderWrapper = styled.div`
-  background: ${props => props.theme.colors.secondaryBg};
-`;
+  background: ${(props) => props.theme.colors.secondaryBg};
+`
 
 const HeaderTop = styled.div`
-  border-bottom: 1px solid ${props => props.theme.colors.primaryBg};
-  background: ${props => props.theme.colors.primaryBg};
-  height: 46px;
-  line-height: 46px;
+  border-bottom: 1px solid ${(props) => props.theme.colors.primaryBg};
+  background: ${(props) => props.theme.colors.primaryBg};
+  height: 70px;
+  /* line-height: 46px; */
   position: relative;
-`;
+  border: 3px solid yellow;
+`
 
 const Title = styled.div`
   text-align: center;
-  text-transform: ${props => props.noCapitalStrs ? 'none' : 'capitalize'};
-  color: ${props => props.theme.colors.text};
-`;
+  text-transform: ${(props) => (props.noCapitalStrs ? 'none' : 'capitalize')};
+  color: ${(props) => props.theme.colors.text};
+`
 
 const ButtonsWrapper = styled.div`
   position: absolute;
@@ -26,7 +27,14 @@ const ButtonsWrapper = styled.div`
   left: 12px;
   display: flex;
   align-items: center;
-`;
+  @media (max-width: 480px) {
+    display: inline-block;
+    flex-wrap: wrap;
+    .my-btn-container {
+      line-height: 10px;
+    }
+  }
+`
 
 const BackButtonWrapper = styled.div`
   height: 32px;
@@ -40,39 +48,39 @@ const BackButtonWrapper = styled.div`
     height: 32px;
 
     path {
-      fill: ${props => props.theme.colors.text};
+      fill: ${(props) => props.theme.colors.text};
     }
 
     &:hover {
       filter: brightness(0.7);
     }
   }
-`;
+`
 
 const BackBtnSeparator = styled.div`
   height: 100%;
   width: 1px;
   display: inline-block;
   margin-right: 12px;
-  background: ${props => props.theme.colors.border};
-`;
+  background: ${(props) => props.theme.colors.border};
+`
 
 const CancelBtn = styled(Button)`
-  background: ${props => props.theme.colors.primaryBg};
-  border-color: ${props => props.theme.colors.primaryBg};
-  color: ${props => props.theme.colors.text};
-  text-transform: ${props => props.noCapitalStrs ? 'none' : 'capitalize'};
+  background: ${(props) => props.theme.colors.primaryBg};
+  border-color: ${(props) => props.theme.colors.primaryBg};
+  color: ${(props) => props.theme.colors.text};
+  text-transform: ${(props) => (props.noCapitalStrs ? 'none' : 'capitalize')};
   min-width: 62px;
   height: 32px;
   margin-right: 8px;
   border: 0;
 
   &:hover {
-    background: ${props => getHoverColor(props.theme.colors.primaryBg)};
-    border-color: ${props => props.theme.colors.primaryBg};
-    color: ${props => props.theme.colors.text};  
+    background: ${(props) => getHoverColor(props.theme.colors.primaryBg)};
+    border-color: ${(props) => props.theme.colors.primaryBg};
+    color: ${(props) => props.theme.colors.text};
   }
-`;
+`
 
 const ToolbarWrapper = styled.div`
   position: relative;
@@ -80,13 +88,16 @@ const ToolbarWrapper = styled.div`
   align-items: center;
   justify-content: center;
   height: 100px;
-  background: ${props => props.theme.colors.secondaryBg};
-  
+  background: ${(props) => props.theme.colors.secondaryBg};
+
   @media (max-width: 768px) {
     flex-direction: column;
     height: initial;
+    & span {
+      line-height: 0 !important;
+    }
   }
-`;
+`
 
 export {
   HeaderWrapper,
@@ -96,5 +107,5 @@ export {
   BackButtonWrapper,
   BackBtnSeparator,
   ToolbarWrapper,
-  CancelBtn
-};
+  CancelBtn,
+}

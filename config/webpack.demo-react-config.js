@@ -1,43 +1,44 @@
-const path = require('path');
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const htmlWebpackPlugin = new HtmlWebpackPlugin({
-  template: path.join(__dirname, "../examples/react/src/index.html"),
-  filename: "./index.html"
-});
+  template: path.join(__dirname, '../examples/react/src/index.html'),
+  filename: './index.html',
+})
 
 module.exports = (env, options) => {
   return {
-    entry: path.join(__dirname, "../examples/react/src/index.js"),
+    entry: path.join(__dirname, '../examples/react/src/index.js'),
     output: {
-      path: path.join(__dirname, "../examples/react/dist"),
-      filename: "filerobot-image-editor.[chunkhash].js",
-      chunkFilename: 'filerobot-image-editor.[name].[chunkhash].js'
+      path: path.join(__dirname, '../examples/react/dist'),
+      filename: 'filerobot-image-editor.[chunkhash].js',
+      chunkFilename: 'filerobot-image-editor.[name].[chunkhash].js',
     },
     module: {
       rules: [
         {
           test: /\.(js|jsx)$/,
-          use: "babel-loader",
+          use: 'babel-loader',
           exclude: /(node_modules|bower_components)\/(?!pretty-bytes\/).*/,
         },
         {
           test: /\.css$/,
-          use: ["style-loader", "css-loader"]
+          use: ['style-loader', 'css-loader'],
         },
         {
           test: /\.(jpg|png|gif)$/,
-          use: "file-loader"
-        }
-      ]
+          use: 'file-loader',
+        },
+      ],
     },
     plugins: [htmlWebpackPlugin],
     resolve: {
-      extensions: [".js", ".jsx"]
+      extensions: ['.js', '.jsx'],
     },
-    devtool: options.mode === 'production' ? 'none' : "sourcemap",
+    devtool: options.mode === 'production' ? 'none' : 'sourcemap',
     devServer: {
-      port: 3003
-    }
+      port: 3003,
+      host: '0.0.0.0',
+    },
   }
-};
+}
