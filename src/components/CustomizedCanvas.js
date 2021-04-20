@@ -588,9 +588,11 @@ export default class CustomizedCanvas extends Component {
     x,
     y,
     stroke,
-    paddingTB = 0,
-    paddingLR = 0,
+    paddingTB = 0.2,
+    paddingLR = 0.2,
     textTheme = 0,
+    backgroundTheme = 0,
+    width,
     ...others
   }) => {
     const { shapes, selectedShape } = this.props
@@ -598,6 +600,7 @@ export default class CustomizedCanvas extends Component {
       () => {
         this.setTextStyle({ textSize, textFont })
         // textTheme==0 黑底白字， textTheme==1 白底黑字
+        // backgroundTheme=0 背景色覆盖文字， backgroundTheme=1 背景色占整行
 
         const factor = textSize
         const actualPaddingTB = paddingTB * factor
@@ -608,9 +611,14 @@ export default class CustomizedCanvas extends Component {
 
         const mText = this._context.measureText(text)
         const bHeight = mText.fontBoundingBoxDescent + mText.fontBoundingBoxAscent + actualPaddingTB
-        const bWidth = this._canvas.width - actualPaddingLR
+        const bWidthForLine = this._canvas.width - actualPaddingLR
+        const bWidthForText = width + actualPaddingLR
+
+        const bWidth = backgroundTheme === 0 ? bWidthForText : bWidthForLine
         const actualStartY = y - mText.fontBoundingBoxAscent - actualPaddingTB / 2
-        const actualStartX = 0 + actualPaddingLR / 2
+        const actualStartXForLine = 0 + actualPaddingLR / 2
+        const actualStartXForText = x - actualPaddingLR / 2
+        const actualStartX = backgroundTheme === 0 ? actualStartXForText : actualStartXForLine
 
         this._context.fillStyle = backgroundColor
         this._context.fillRect(actualStartX, actualStartY, bWidth, bHeight)

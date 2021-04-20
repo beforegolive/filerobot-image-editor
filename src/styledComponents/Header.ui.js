@@ -14,7 +14,6 @@ const HeaderTop = styled.div`
     height: 70px;
   }
   position: relative;
-  border: 3px solid yellow;
 `
 
 const Title = styled.div`

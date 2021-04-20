@@ -17,6 +17,7 @@ import SaveActions from './SaveActions'
 
 export default class extends Component {
   updateProperty = (name, value) => this.props.shapeOperations.updateShape({ [name]: value })
+  updatePropertyMulti = (obj) => this.props.shapeOperations.updateShape({ ...obj })
   render() {
     const {
       activeTab,
@@ -31,7 +32,7 @@ export default class extends Component {
       shapeOperations,
       selectedShape,
     } = this.props
-    const { textTheme = 0 } = selectedShape
+    const { textTheme = 0, backgroundTheme = 0 } = selectedShape
     const { tools, replaceCloseWithBackButton, noCapitalStrs, filerobot, finishButtonLabel } = config
     const isOneTool = tools.length === 1
     const filteredName = activeTab === 'rotate' ? 'orientation' : activeTab
@@ -108,14 +109,14 @@ export default class extends Component {
             >
               {t[`toolbar.cancel`]}
             </CancelBtn>
+            <Button onClick={() => shapeOperations.addText()}>添加文字</Button>
+            <Button
+              disabled={selectedShape.index === undefined}
+              onClick={() => shapeOperations.deleteShape({ index: selectedShape.index })}
+            >
+              删除文字
+            </Button>
             <div className="my-btn-container">
-              <Button onClick={() => shapeOperations.addText()}>添加文字</Button>
-              <Button
-                disabled={selectedShape.index === undefined}
-                onClick={() => shapeOperations.deleteShape({ index: selectedShape.index })}
-              >
-                删除文字
-              </Button>
               <Button
                 disabled={selectedShape.index === undefined}
                 primary={textTheme === 0}
@@ -129,6 +130,25 @@ export default class extends Component {
                 onClick={() => this.updateProperty('textTheme', 1)}
               >
                 白底黑字
+              </Button>
+              <Button
+                disabled={selectedShape.index === undefined}
+                primary={backgroundTheme === 0}
+                onClick={() => this.updateProperty('backgroundTheme', 0)}
+              >
+                背景随字
+              </Button>
+              <Button
+                disabled={selectedShape.index === undefined}
+                primary={backgroundTheme === 1}
+                onClick={() => {
+                  this.updatePropertyMulti({
+                    backgroundTheme: 1,
+                    paddingLR: 0,
+                  })
+                }}
+              >
+                背景随行
               </Button>
             </div>
           </ButtonsWrapper>
