@@ -1,87 +1,79 @@
-const CONTAINER_SELECTOR = 'filerobot-image-editor-root';
+const CONTAINER_SELECTOR = 'filerobot-image-editor-root'
 
 // The library modal ID.
-const MODAL_ID = 'filerobot-image-editor-modal';
+const MODAL_ID = 'filerobot-image-editor-modal'
 
 // ID for preview canvas (canvas contains watermark, shapes...etc).
-const PREVIEW_CANVAS_ID = 'filerobot-shapes-edit-box';
-const CANVAS_ID = 'filerobot-image-edit-box';
-const ORIGINAL_CANVAS_ID = 'filerobot-image-edit-box-original';
+const PREVIEW_CANVAS_ID = 'filerobot-shapes-edit-box'
+const CANVAS_ID = 'filerobot-image-edit-box'
+const ORIGINAL_CANVAS_ID = 'filerobot-image-edit-box-original'
 
 // 'effects', 'filters', 'adjust', 'crop', 'resize', 'rotate'
 const TOOLS = [
   // 'adjust', 'effects', 'filters', 'rotate', 'crop', 'resize', 'watermark', 'shapes', 'image', 'text'
-  'text'
-];
+  'text',
+]
 
 // 'clarity', 'edge_enhance', 'emboss', 'grungy', 'hazy', 'lomo', 'noise', 'old_paper', 'posterize', 'radial_blur',
 //   'sin_city', 'tilt_shift'
 const EFFECTS = [
-  'edge_enhance', 'emboss', 'grungy', 'hazy', 'lomo', 'radial_blur', 'sin_city', 'tilt_shift'
-];
+  'edge_enhance',
+  'emboss',
+  'grungy',
+  'hazy',
+  'lomo',
+  'radial_blur',
+  'sin_city',
+  'tilt_shift',
+]
 
 // 'colorize', 'contrast', 'cross_process', 'glow_sun', 'hdr_effect', 'jarques', 'love', 'old_boot',
 //   'orange_peel', 'pin_hole', 'pleasant', 'sepia', 'sun_rise', 'vintage'
 const FILTERS = [
-  'cross_process', 'glow_sun', 'jarques', 'love', 'old_boot', 'orange_peel', 'pin_hole', 'sepia', 'sun_rise', 'vintage'
-];
+  'cross_process',
+  'glow_sun',
+  'jarques',
+  'love',
+  'old_boot',
+  'orange_peel',
+  'pin_hole',
+  'sepia',
+  'sun_rise',
+  'vintage',
+]
 
-const CLOUDIMAGE_OPERATIONS = ['crop', 'resize', 'rotate', 'watermark', 'focus_point'];
+const CLOUDIMAGE_OPERATIONS = ['crop', 'resize', 'rotate', 'watermark', 'focus_point']
 
 const WATERMARK_POSITIONS = [
-  "left-top",
-  "center-top",
-  "right-top",
-  "left-center",
-  "center",
-  "right-center",
-  "left-bottom",
-  "center-bottom",
-  "right-bottom"
-];
+  'left-top',
+  'center-top',
+  'right-top',
+  'left-center',
+  'center',
+  'right-center',
+  'left-bottom',
+  'center-bottom',
+  'right-bottom',
+]
 
 // possible positions ["corners", "star", "center", "top-row", "center-row", "bottom-row"]
 const WATERMARK_POSITIONS_PRESET = {
-  "corners": [
-    1, 0, 1,
-    0, 0, 0,
-    1, 0, 1,
-  ],
-  "star": [
-    0, 1, 0,
-    1, 1, 1,
-    0, 1, 0,
-  ],
-  "center": [
-    0, 0, 0,
-    0, 1, 0,
-    0, 0, 0,
-  ],
-  "top-row": [
-    1, 1, 1,
-    0, 0, 0,
-    0, 0, 0,
-  ],
-  "center-row": [
-    0, 0, 0,
-    1, 1, 1,
-    0, 0, 0,
-  ],
-  "bottom-row": [
-    0, 0, 0,
-    0, 0, 0,
-    1, 1, 1,
-  ],
-};
+  corners: [1, 0, 1, 0, 0, 0, 1, 0, 1],
+  star: [0, 1, 0, 1, 1, 1, 0, 1, 0],
+  center: [0, 0, 0, 0, 1, 0, 0, 0, 0],
+  'top-row': [1, 1, 1, 0, 0, 0, 0, 0, 0],
+  'center-row': [0, 0, 0, 1, 1, 1, 0, 0, 0],
+  'bottom-row': [0, 0, 0, 0, 0, 0, 1, 1, 1],
+}
 
 export const DEFAULT_WATERMARK = {
   opacity: 0.7,
   position: 'center',
   url: '',
-  applyByDefault: false
-};
+  applyByDefault: false,
+}
 
-const WATERMARK_UNIQUE_KEY = 'watermark-layer';
+const WATERMARK_UNIQUE_KEY = 'watermark-layer'
 
 const cropPresets = [
   { name: 'original', value: 0 },
@@ -91,8 +83,8 @@ const cropPresets = [
   { name: '5 : 4', value: 1.25 },
   { name: '4 : 3', value: 1.33333 },
   { name: '6 : 4', value: 1.5 },
-  { name: '16 : 9', value: 1.7777 }
-];
+  { name: '16 : 9', value: 1.7777 },
+]
 
 const resizePresets = [
   { name: 'big square', width: 600, height: 600, ratio: 1 },
@@ -107,8 +99,8 @@ const resizePresets = [
   { name: 'small size', width: 1200, height: 675, ratio: 1.7777 },
   { name: 'better quality', width: 1920, height: 1080, ratio: 1.7777 },
   { name: 'small banner', width: 468, height: 60, ratio: 7.8 },
-  { name: 'big banner', width: 936, height: 120, ratio: 7.8 }
-];
+  { name: 'big banner', width: 936, height: 120, ratio: 7.8 },
+]
 
 const STANDARD_FONTS = [
   { label: 'Arial', value: 'Arial' },
@@ -124,7 +116,7 @@ const STANDARD_FONTS = [
   { label: 'Comic Sans MS', value: 'Comic Sans MS' },
   { label: 'Candara', value: 'Candara' },
   { label: 'Impact', value: 'Impact' },
-];
+]
 
 const WATERMARK_CLOUDIMAGE_FONTS = [
   { label: 'Arial', value: 'Arial' },
@@ -150,17 +142,17 @@ const WATERMARK_CLOUDIMAGE_FONTS = [
   { label: 'Georgia', value: 'Georgia' },
   { label: 'Impact', value: 'Impact' },
   { label: 'Noto mono', value: 'Noto-Mono' },
-];
+]
 
 const SHAPES_VARIANTS = {
   RECT: 'rect',
   SQUARE: 'square',
   CIRCLE: 'circle',
   IMAGE: 'image',
-  TEXT: 'text'
+  TEXT: 'text',
 }
 
-const DEFAULT_IMG_URL = 'https://image.flaticon.com/icons/svg/916/916762.svg';
+const DEFAULT_IMG_URL = 'https://image.flaticon.com/icons/svg/916/916762.svg'
 
 const UPLOADER = {
   hideCloudimageSwitcher: true,
@@ -172,14 +164,14 @@ const UPLOADER = {
   reduceBeforeEdit: {
     mode: 'manual',
     widthLimit: 2000,
-    heightLimit: 2000
+    heightLimit: 2000,
   },
 
   cropBeforeEdit: null,
 
   cropPresets,
 
-  resizePresets
+  resizePresets,
 }
 
 const ON_CLOSE_STATUSES = {
@@ -212,5 +204,5 @@ export {
   ON_CLOSE_STATUSES,
   CANVAS_ID,
   ORIGINAL_CANVAS_ID,
-  CONTAINER_SELECTOR
-};
+  CONTAINER_SELECTOR,
+}

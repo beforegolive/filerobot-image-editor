@@ -31,6 +31,7 @@ export default class extends Component {
       config,
       shapeOperations,
       selectedShape,
+      shapes,
     } = this.props
     const { textTheme = 0, backgroundTheme = 0 } = selectedShape
     const { tools, replaceCloseWithBackButton, noCapitalStrs, filerobot, finishButtonLabel } = config
@@ -110,6 +111,18 @@ export default class extends Component {
               {t[`toolbar.cancel`]}
             </CancelBtn>
             <Button onClick={() => shapeOperations.addText()}>添加文字</Button>
+            <Button
+              onClick={() => {
+                console.log('=== 复制文字 shapeOperations：', shapeOperations)
+                console.log('=== 复制文字 shapes', shapes)
+                console.log('=== 复制文字 selectedShape', selectedShape)
+                const adjustedX = selectedShape.x + 10
+                const adjustedY = selectedShape.y + 10
+                shapeOperations.addText({ ...selectedShape, x: adjustedX, y: adjustedY })
+              }}
+            >
+              复制文字
+            </Button>
             <Button
               disabled={selectedShape.index === undefined}
               onClick={() => shapeOperations.deleteShape({ index: selectedShape.index })}

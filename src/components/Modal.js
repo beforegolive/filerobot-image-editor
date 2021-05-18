@@ -1,23 +1,20 @@
-import { Component, Fragment } from 'react';
-import { createPortal } from 'react-dom';
-import styled from 'styled-components';
-import { CloseBtn } from './CloseBtn';
-import { variables } from '../styledComponents/styleUtils';
-import { CONTAINER_SELECTOR, MODAL_ID, ON_CLOSE_STATUSES } from '../config';
-
+import { Component, Fragment } from 'react'
+import { createPortal } from 'react-dom'
+import styled from 'styled-components'
+import { CloseBtn } from './CloseBtn'
+import { variables } from '../styledComponents/styleUtils'
+import { CONTAINER_SELECTOR, MODAL_ID, ON_CLOSE_STATUSES } from '../config'
 
 const ModalOverlay = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
   overflow: hidden;
   position: fixed;
-  background: ${props => variables.colors.background.base || '#000'};
-  opacity: .4;
+  background: ${(props) => variables.colors.background.base || '#000'};
+  opacity: 0.4;
   z-index: 999999992;
-`;
-
+`
 
 const ModalContent = styled.div`
   position: relative;
@@ -32,14 +29,15 @@ const ModalContent = styled.div`
   flex-direction: column;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  border: ${props => props.noBorder ? 0 : '1px'} solid ${props => props.noBorder ? 'transparent' : variables.colors.border.base || '#B0B0B0'};
-  border-radius: ${props => props.noBorder ? 0 : variables.radii[3]};
+  border: ${(props) => (props.noBorder ? 0 : '1px')} solid
+    ${(props) => (props.noBorder ? 'transparent' : variables.colors.border.base || '#B0B0B0')};
+  border-radius: ${(props) => (props.noBorder ? 0 : variables.radii[3])};
   overflow: hidden;
   outline: 0;
-  height: ${props => props.h || props.height || 'auto'};
-  background: ${props => variables.colors.background.base || '#fff'};
-  color: ${props => variables.colors.text || '#3d3d3d'};
-`;
+  /* height: ${(props) => props.h || props.height || 'auto'}; */
+  background: ${(props) => variables.colors.background.base || '#fff'};
+  color: ${(props) => variables.colors.text || '#3d3d3d'};
+`
 
 const ModalFullScreen = styled.div`
   azimuth: center;
@@ -81,33 +79,37 @@ const ModalFullScreen = styled.div`
   widows: 2;
   word-spacing: 0;
   position: fixed;
-  padding: ${props => props.p || props.padding || '0'};
+  padding: ${(props) => props.p || props.padding || '0'};
   top: 5%;
   left: 15%;
   right: 15%;
   bottom: 5%;
-  color: ${props => variables.colors.text || '#3d3d3d'};
+  color: ${(props) => variables.colors.text || '#3d3d3d'};
   overflow: hidden;
-  z-index: ${props => props.zIndex || '999999995'};
+  z-index: ${(props) => props.zIndex || '999999995'};
   display: block;
   animation: scaleflexFadeInAnimation 350ms ease-in-out both;
   font-family: 'Roboto', 'Arial', sans-serif;
   filter: drop-shadow(0px 2px 4px rgba(77, 78, 78, 0.25));
-  
-  ${props => props.isTooSmall ? getSmallModalStyle() : ''};
-  
+
+  ${(props) => (props.isTooSmall ? getSmallModalStyle() : '')};
+
   @keyframes scaleflexFadeInAnimation {
-    from {opacity: 0;}
-    to {opacity: 1;}
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
-  
+
   @media (max-width: 1000px) {
     top: 20px;
     left: 20px;
     bottom: 20px;
     right: 20px;
   }
-`;
+`
 
 function getSmallModalStyle() {
   return `
@@ -131,51 +133,55 @@ function getSmallModalStyle() {
 
 export class Modal extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
-    this.root = document.createElement('div');
-    this.root.classList.add(CONTAINER_SELECTOR);
-    this.root.id = CONTAINER_SELECTOR;
+    this.root = document.createElement('div')
+    this.root.classList.add(CONTAINER_SELECTOR)
+    this.root.id = CONTAINER_SELECTOR
 
-    document.body.appendChild(this.root);
+    document.body.appendChild(this.root)
 
-    const { closeOnOutsideClick = true } =  this.props;
+    const { closeOnOutsideClick = true } = this.props
     if (closeOnOutsideClick) {
-      document.addEventListener('keydown', this.handleOutsideMouseClick);
+      document.addEventListener('keydown', this.handleOutsideMouseClick)
     }
   }
 
   componentWillUnmount() {
-    const { closeOnOutsideClick = true } =  this.props;
-    document.body.removeChild(this.root);
+    const { closeOnOutsideClick = true } = this.props
+    document.body.removeChild(this.root)
 
     if (closeOnOutsideClick) {
-      document.removeEventListener('keydown', this.handleOutsideMouseClick);
+      document.removeEventListener('keydown', this.handleOutsideMouseClick)
     }
   }
   //todo add keycode to config
-  handleOutsideMouseClick = event => {
-    let { onClose = () => {} } = this.props;
+  handleOutsideMouseClick = (event) => {
+    let { onClose = () => {} } = this.props
 
     if (event.keyCode === 27) {
-      event.stopPropagation();
-      onClose(ON_CLOSE_STATUSES.ESC_KEY_PRESSED);
+      event.stopPropagation()
+      onClose(ON_CLOSE_STATUSES.ESC_KEY_PRESSED)
     }
   }
 
   render() {
-    let { onClose = () => {}, isHideCloseBtn, configModalId, ...otherProps } = this.props;
+    let { onClose = () => {}, isHideCloseBtn, configModalId, ...otherProps } = this.props
 
     return createPortal(
       <Fragment>
-        <ModalOverlay className="modal-overlay" onClick={() => onClose(ON_CLOSE_STATUSES.MODAL_OVERLAY_CLICKED)}/>
+        <ModalOverlay
+          className="modal-overlay"
+          onClick={() => onClose(ON_CLOSE_STATUSES.MODAL_OVERLAY_CLICKED)}
+        />
         <ModalFullScreen id={configModalId || MODAL_ID} {...this.props}>
-          {!isHideCloseBtn && <CloseBtn onClick={onClose}/>}
+          {!isHideCloseBtn && <CloseBtn onClick={onClose} />}
           <ModalContent h="100%" {...otherProps}>
             {this.props.children}
           </ModalContent>
         </ModalFullScreen>
-      </Fragment>, this.root
+      </Fragment>,
+      this.root
     )
   }
 }

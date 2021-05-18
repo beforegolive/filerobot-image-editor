@@ -29,7 +29,7 @@ export default class CustomizedCanvas extends Component {
     if (this.canvasRef && this.canvasRef.current && !this._canvas) {
       this._canvas = this.canvasRef.current
       this._canvas.addEventListener('mousedown', this.onSelect)
-      // this._canvas.addEventListener('touchstart', this.onSelect);
+      // this._canvas.addEventListener('touchstart', this.onSelect)
       this._context = this._canvas.getContext('2d')
 
       const border = `1px solid ${
@@ -154,7 +154,6 @@ export default class CustomizedCanvas extends Component {
 
   onSelect = (event) => {
     const { shapes, activeTab } = this.props
-    // console.log('== activeTab', activeTab )
     // console.log('=== event:', event)
     if (!this._allowedTabs.includes(activeTab)) {
       return
@@ -163,6 +162,7 @@ export default class CustomizedCanvas extends Component {
     const { offsetX, offsetY } = event
 
     let foundShape = false
+    // console.log('== onSelect shapes', shapes)
     shapes.forEach((shape) => {
       if (
         !shape.hidden &&
@@ -173,7 +173,7 @@ export default class CustomizedCanvas extends Component {
         shape.tab === activeTab
       ) {
         foundShape = true
-        console.log('=== shape:', shape)
+        // console.log('=== shape:', shape)
         this.updateState({
           selectedShape: {
             ...shape,
@@ -218,15 +218,13 @@ export default class CustomizedCanvas extends Component {
   }
 
   activateResizingActions = () => {
-    const { selectedShape } = this.props
-
-    if (selectedShape.lockScaleToPercentage) {
-      return
-    }
-
-    Array.from(document.getElementsByClassName('shape-resizing-control')).forEach((control) => {
-      control.addEventListener('mousedown', this.trackShapeResize)
-    })
+    // const { selectedShape } = this.props
+    // if (selectedShape.lockScaleToPercentage) {
+    //   return
+    // }
+    // Array.from(document.getElementsByClassName('shape-resizing-control')).forEach((control) => {
+    //   control.addEventListener('mousedown', this.trackShapeResize)
+    // })
   }
 
   trackShapeResize = ({ target }) => {
@@ -413,6 +411,7 @@ export default class CustomizedCanvas extends Component {
   startDragging = (event) => {
     if (event.targetTouches && event.targetTouches[0]) {
       event.preventDefault()
+      // console.log('=== event.targetTouches:', event.targetTouches)
       const { clientX, clientY } = event.targetTouches[0]
       const { x, y } = this._canvas.getBoundingClientRect()
       event.offsetX = clientX - x
@@ -420,6 +419,7 @@ export default class CustomizedCanvas extends Component {
     }
 
     const { selectedShape } = this.props
+    // console.log('=== selectedShape', selectedShape)
     const { startEdgeOffset = {}, width, height, index } = selectedShape
 
     // event.offsetX - startEdgeOffset.x for the shape's X from its starting point not the exact mouse position.
@@ -832,7 +832,9 @@ export default class CustomizedCanvas extends Component {
         return
       }
 
-      this.drawText(drawingArgs)
+      // console.log('=== drawingArgs:', drawingArgs)
+      // console.log('=== allArgs:', allArgs)
+      this.drawText(allArgs)
 
       const index = this.pushShapeToShapes(allArgs)
 
@@ -1296,6 +1298,7 @@ export default class CustomizedCanvas extends Component {
             left,
             top,
             pointerEvents: 'none',
+            padding: '12px',
           }}
         >
           {/* {<input></input>} */}
